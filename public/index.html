@@ -8,6 +8,22 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+    <style>
+      #app {
+        background-image: url('https://cdn.vuetifyjs.com/images/parallax/material.jpg');
+      }
+
+      #app::before {
+        content: "";
+        background-size: cover;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,0.45);
+      }
+    </style>
   </head>
   <body>
     <noscript>

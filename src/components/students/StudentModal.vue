@@ -45,36 +45,19 @@ export default {
 </script>
 
 <template>
-  <v-dialog v-model="showDialog">
+  <v-dialog v-model="showDialog" max-width="500">
     <v-card>
+      <v-card-title class="accent">
+        {{ student.id ? "Alterando" : "Cadastrando" }} estudante
+      </v-card-title>
       <v-container>
-        <h2>{{ student.id ? "Alterando" : "Criando" }} aluno</h2>
-        <v-text-field
-          v-if="student.id"
-          label="#ID"
-          disabled
-          outlined
-          v-model="student.id"
-          dense
-        />
+        <v-text-field v-if="student.id" label="#ID" disabled outlined v-model="student.id" dense />
         <v-text-field label="Nome" outlined v-model="student.name" dense />
-        <v-text-field
-          label="Idade"
-          type="number"
-          outlined
-          v-model="student.age"
-          dense
-        />
-        <v-select
-          v-model="student.sex"
-          :items="genderList"
-          item-value="value"
-          item-text="label"
-          filled
-          label="Gênero"
-        ></v-select>
+        <v-text-field label="Idade" type="number" outlined v-model="student.age" dense />
+        <v-select v-model="student.sex" :items="genderList" item-value="value" item-text="label" filled label="Gênero">
+        </v-select>
 
-        <v-btn @click="handleSave">Salvar</v-btn>
+        <v-btn color="primary" @click="handleSave">Salvar</v-btn>
       </v-container>
     </v-card>
   </v-dialog>

@@ -15,7 +15,7 @@ class StudentService {
 
   async update(id, student) {
     return await axios
-      .patch(`${BACKEND_URL}/students/${id}`, student)
+      .put(`${BACKEND_URL}/students/${id}`, student)
       .then((res) => res.data);  
   }
 

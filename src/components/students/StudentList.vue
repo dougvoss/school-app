@@ -8,12 +8,13 @@ export default {
   },
 
   data: () => ({
+    loading: false,
     header: [
       { text: "#ID", value: "id" },
       { text: "Nome", value: "name" },
       { text: "Idade", value: "age" },
       { text: "Gênero", value: "sex" },
-      { text: "Ações", value: "actions" },
+      { text: "Ações", value: "actions", align: 'end' },
     ],
     students: [],
 
@@ -29,8 +30,10 @@ export default {
 
   methods: {
     async getStudents() {
+      this.loading = true;
       const result = await StudentService.select();
-      this.students = result.data;
+      this.students = result;
+      this.loading = false;
     },
 
     async deleteItem(item) {
@@ -50,10 +53,34 @@ export default {
 </script>
 
 <template>
-  <v-container>
-    <v-card>
-      <v-btn @click="createStudent"> Criar novo aluno </v-btn>
-      <v-data-table :headers="header" :items="students" hide-default-footer>
+  <v-container color="accent" class="mt-20">
+
+    <v-card elevation="8" max-width="1000" color="accent" class="ma-auto">
+      <v-card-title>
+        <v-row>
+          <v-col cols="3">
+            <span>
+              Estudantes
+            </span>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col cols="1">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn fab color="primary" v-bind="attrs" v-on="on" @click="createStudent">
+                  <v-icon dark>
+                    mdi-plus
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Adicionar estudante</span>
+            </v-tooltip>
+
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-data-table :headers="header" :items="students" hide-default-footer :loading="loading" loader-height="2"
+        loading-text="Carregando dados...">
         <template v-slot:[`item.actions`]="{ item }">
           <v-icon small @click="editItem(item)" color="blue">
             mdi-pencil
@@ -63,10 +90,10 @@ export default {
           </v-icon>
         </template>
         <template v-slot:[`item.sex`]="{ item }">
-          {{ genderList[item.sex] || 'não informado' }}  
+          {{ genderList[item.sex] || 'não informado' }}
         </template>
         <template v-slot:[`item.age`]="{ item }">
-          {{ item.age || 'não informado' }}  
+          {{ item.age || 'não informado' }}
         </template>
         <template v-slot:no-data>
           <i>Sem dados para mostrar</i>
