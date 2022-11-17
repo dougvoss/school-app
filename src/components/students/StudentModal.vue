@@ -54,8 +54,8 @@ export default {
         <v-text-field v-if="student.id" label="#ID" disabled outlined v-model="student.id" dense />
         <v-text-field label="Nome" outlined v-model="student.name" dense />
         <v-text-field label="Idade" type="number" outlined v-model="student.age" dense />
-        <v-select v-model="student.sex" :items="genderList" item-value="value" item-text="label" filled label="Gênero">
-        </v-select>
+        <v-select v-model="student.sex" :items="genderList" item-value="value" item-text="label" filled
+          label="Gênero" />
 
         <v-btn color="primary" @click="handleSave">Salvar</v-btn>
       </v-container>

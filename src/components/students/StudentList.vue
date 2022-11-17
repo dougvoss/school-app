@@ -82,12 +82,23 @@ export default {
       <v-data-table :headers="header" :items="students" hide-default-footer :loading="loading" loader-height="2"
         loading-text="Carregando dados...">
         <template v-slot:[`item.actions`]="{ item }">
-          <v-icon small @click="editItem(item)" color="blue">
-            mdi-pencil
-          </v-icon>
-          <v-icon small @click="deleteItem(item)" color="red">
-            mdi-delete
-          </v-icon>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon @click="editItem(item)" color="blue" v-bind="attrs" v-on="on">
+                mdi-pencil
+              </v-icon>
+            </template>
+            <span>Alterar estudante</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon @click="deleteItem(item)" color="red" v-bind="attrs" v-on="on">
+                mdi-delete
+              </v-icon>
+            </template>
+            <span>Excluir estudante</span>
+          </v-tooltip>
+
         </template>
         <template v-slot:[`item.sex`]="{ item }">
           {{ genderList[item.sex] || 'não informado' }}
